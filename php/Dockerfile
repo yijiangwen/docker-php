@@ -94,7 +94,6 @@ RUN wget --no-check-certificate https://gitee.com/swoole/swoole/repository/archi
 # install composer
 RUN curl -sS https://install.phpcomposer.com/installer | php \
     && mv composer.phar /usr/local/bin/composer \
-    && composer config -g repositories.packagist composer https://packagist.phpcomposer.com \
     && composer self-update --clean-backups \
     && composer config -g repo.packagist composer https://packagist.laravel-china.org
 

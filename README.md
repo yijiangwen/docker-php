@@ -1,5 +1,9 @@
 #  Docker化PHP环境
 
+## 此构建参考学习：https://github.com/opso-code/docker-php
+
+## 为合适自己的工作和开发环境而打造，for ninja911
+
 使用 **docker-compose** 快速搭建php环境
 
 ## 环境构成
@@ -25,11 +29,12 @@ php镜像来自官方 `php:fpm`，目前最新稳定版本是 `7.2.8`
 
 ### nginx
 
-直接使用的 `nginx:1.12.2-alpine` 镜像
+直接使用的 `nginx:latest` 镜像,需要挂载自己的PHP项目工作目录，并配置nginx/conf.d里各个站点
 
 ### mongodb
 
-直接使用的 `mongodb:3.4.11` 镜像，根据具体情况修改 `/data/mongodb` 本地映射的数据库文件夹，如不需要可注释掉，其他数据库同理。
+直接使用的 `mongodb:latest` 镜像，根据具体情况修改 `/data/mongodb` 本地映射的数据库文件夹，如不需要可注释掉，其他数据库同理。
+Windows 磁盘是NTFS/FAT32，不支持Ext4大文件，不能挂载，需要注释挂载， Windows下无解
 
 ## 运行
 
@@ -38,7 +43,5 @@ $ cd docker-php/
 // 后台运行
 $ docker-compose up -d
 // 进入php容器bash环境
-$ docker exec -it compose-php bash
+$ docker-compose exec php bash
 ```
-
-浏览器打开 http://127.0.0.1 Bingo!
