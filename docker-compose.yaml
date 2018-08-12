@@ -4,27 +4,63 @@ services:
     nginx:
         # 依赖关系 先跑php
         depends_on:
-            - "php"
-        image: "nginx:1.12.2-alpine"
+            - php
+        image: nginx:${NGINX_VERSION}
         # 数据卷
         volumes:
-            - "$PWD/conf.d:/etc/nginx/conf.d"
-            - "$PWD/www:/usr/share/nginx/html"
+            - ${LOCAL_STOARGE_PATH}/nginx/conf.d:/etc/nginx/conf.d:ro
+            - ${LOCAL_WEB_PATH}:/works
         # 端口映射
         ports:
-            - "80:80"
+            - 80:80
+
         # 容器名称
-        container_name: "compose-nginx"
+        container_name: nginx
+        #restart: always
     php:
-        # restart: always
         build: php/
         volumes:
-            - "$PWD/www:/var/www/html"
-        container_name: "compose-php"
+            - ${LOCAL_WEB_PATH}:/var/www/html
+        container_name: php
+        #restart: always
+    # MySQL数据库
+    mysql:
+        image: mysql:${MYSQL_VERSION}
+        # 配置环境变量
+        environment:
+            MYSQL_USER: root
+            MYSQL_ROOT_PASSWORD: mysql2018
+            MYSQL_ROOT_HOST: "%"
+        ports:
+            - 3306:3306
+        volumes:
+            # mysql 配置文件
+            - ${LOCAL_STOARGE_PATH}/mysql/conf.d:/etc/mysql/conf.d:ro
+            # mysql 数据库
+            - ${LOCAL_STOARGE_PATH}/mysql/db:/var/lib/mysql
+            # mysql 日志
+            - ${LOCAL_STOARGE_PATH}/mysql/logs:/var/log/mysql
+        container_name: mysql
+        #restart: always
+    redis:
+        image: redis:${REDIS_VERSION}
+        volumes:
+            # redis 配置文件
+            - ${LOCAL_STOARGE_PATH}/redis/conf.d/redis.conf:/etc/redis/redis.conf:ro
+            # redis 持久化数据存储
+            - ${LOCAL_STOARGE_PATH}/redis/db:/data/redis
+            # 以配置文件启动 redis
+        ports:
+            - 6379:6379
+        container_name: redis
+        #restart: always
     mongo:
-        image: "mongo:3.4.11"
+        image: mongo:latest
         volumes: 
-            - "/data/mongodb:/data/db"
+            # Windows 磁盘是NTFS/FAT32，不支持Ext4大文件，不能挂载，需要注释下行， Windows下无解
+            #- ${LOCAL_STOARGE_PATH}/mongo/db:/data/db
+            - ${LOCAL_STOARGE_PATH}/mongo/logs:/var/log/mongodb
         ports: 
-            - "27017:27017"
-        container_name: "compose-mongo"
+            - 27017:27017
+        container_name: mongo
+        #restart: always
