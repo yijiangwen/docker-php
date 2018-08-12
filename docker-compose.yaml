@@ -20,7 +20,7 @@ services:
     php:
         build: php/
         volumes:
-            - ${LOCAL_WEB_PATH}:/var/www/html
+            - ${LOCAL_WEB_PATH}:/works
         container_name: php
         #restart: always
     # MySQL数据库
