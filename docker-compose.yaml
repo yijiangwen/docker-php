@@ -10,6 +10,7 @@ services:
         # 数据卷
         volumes:
             - ${LOCAL_STOARGE_PATH}/nginx/conf.d:/etc/nginx/conf.d:ro
+            - ${LOCAL_STOARGE_PATH}/nginx/ca:/etc/nginx/ca:ro
             - ${LOCAL_WEB_PATH}:/works
         # 端口映射
         ports:
