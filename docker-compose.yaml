@@ -5,7 +5,8 @@ services:
         # 依赖关系 先跑php
         depends_on:
             - php
-        image: nginx:${NGINX_VERSION}
+        #image: nginx:${NGINX_VERSION}
+        build: nginx/
         # 数据卷
         volumes:
             - ${LOCAL_STOARGE_PATH}/nginx/conf.d:/etc/nginx/conf.d:ro
@@ -13,6 +14,7 @@ services:
         # 端口映射
         ports:
             - 80:80
+            - 443:443
 
         # 容器名称
         container_name: nginx
