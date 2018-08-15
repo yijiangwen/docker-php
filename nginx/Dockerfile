@@ -23,15 +23,8 @@ RUN sed -i 's/mouse\=a/mouse=v/g' /usr/share/vim/vim80/defaults.vim
 
 COPY docker-make-ssl.sh /usr/local/bin/
 
-#RUN mkdir -p /etc/nginx/ssl/certs && mkdir -p /etc/nginx/ssl/crl && mkdir -p /etc/nginx/ssl/private
-
-# 替换opensll 证书生成目录
-RUN sed -i 's/\.\/demoCA/\/etc\/nginx\/ssl/g' /etc/ssl/openssl.cnf
-
-
-#COPY docker-entrypoint.sh /usr/local/bin/
-#RUN ln -s /usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
-#ENTRYPOINT ["docker-entrypoint.sh"]
+#RUN ln -s /usr/local/bin/docker-make-ssl.sh /docker-make-ssl.sh
+#ENTRYPOINT ["docker-make-ssl.sh"]
 
 
 EXPOSE 80
