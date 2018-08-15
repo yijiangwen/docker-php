@@ -59,13 +59,13 @@ services:
             - 6379:6379
         container_name: redis
         #restart: always
-    mongo:
-        image: mongo:latest
-        volumes: 
-            # Windows 磁盘是NTFS/FAT32，不支持Ext4大文件，不能挂载，需要注释下行， Windows下无解
-            #- ${LOCAL_STOARGE_PATH}/mongo/db:/data/db
-            - ${LOCAL_STOARGE_PATH}/mongo/logs:/var/log/mongodb
-        ports: 
-            - 27017:27017
-        container_name: mongo
+    #mongo:
+#        image: mongo:latest
+#        volumes: 
+#            # Windows 磁盘是NTFS/FAT32，不支持Ext4大文件，不能挂载，需要注释下行， Windows下无解
+#            #- ${LOCAL_STOARGE_PATH}/mongo/db:/data/db
+#            - ${LOCAL_STOARGE_PATH}/mongo/logs:/var/log/mongodb
+#        ports: 
+#            - 27017:27017
+#        container_name: mongo
         #restart: always
