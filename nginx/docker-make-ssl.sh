@@ -1,15 +1,17 @@
 #!/bin/bash
-set -e
+
+# set -e
+
 # 生成CA证书
 # 替换opensll 证书生成目录
 sed -i 's/\.\/demoCA/\/etc\/nginx\/ssl/g' /etc/ssl/openssl.cnf
 
-cd /etc/nginx
+cd /etc/nginx/
 
-rm -rf /etc/nginx/ssl
-mkdir -p /etc/nginx/ssl/certs
-mkdir -p /etc/nginx/ssl/crl
-mkdir -p /etc/nginx/ssl/private
+rm -rf /etc/nginx/ssl/
+mkdir -p /etc/nginx/ssl/certs/
+mkdir -p /etc/nginx/ssl/crl/
+mkdir -p /etc/nginx/ssl/private/
 
 /usr/bin/openssl genrsa -out /etc/nginx/ssl/private/ca.pem 2048
 /usr/bin/openssl rsa -in /etc/nginx/ssl/private/ca.pem -out /etc/nginx/ssl/private/ca.key
