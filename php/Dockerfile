@@ -13,7 +13,7 @@ RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list \
     && echo "${TIMEZONE}" > /etc/timezone
 
 # init
-RUN apt-get update && \
+RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
     curl \
     wget \
@@ -30,7 +30,11 @@ RUN apt-get update && \
     libssl-dev \
     libmcrypt-dev \
     libmemcached-dev \
-    apt-utils \
+    libtool \
+    libicu-dev \
+    libxml2 \
+    libxml2-dev \
+    libgmp3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # install hiredis
@@ -49,10 +53,16 @@ RUN wget --no-check-certificate https://gitee.com/oschina/hiredis/repository/arc
 # install php extentions
 RUN pecl channel-update pecl.php.net \
     && docker-php-ext-configure gd \
-    --enable-gd \
     --with-jpeg-dir=/usr/lib \
     --with-freetype-dir=/usr/include/freetype2 \
-    && docker-php-ext-install -j$(nproc) bcmath mysqli pdo_mysql gd \
+    && docker-php-ext-install -j$(nproc) bcmath mysqli pdo_mysql gd pcntl intl soap gmp \
+    && pecl install msgpack \
+    && docker-php-ext-enable msgpack \
+    && pecl install seaslog \
+    && docker-php-ext-enable seaslog \
+# 一般情况，不需要用户变量缓存，所以注释掉安装apcu
+#    && printf "\n" | pecl install apcu \
+#    && docker-php-ext-enable apcu \
     && pecl install mongodb \
     && docker-php-ext-enable mongodb \
     && pecl install memcached \
@@ -61,6 +71,8 @@ RUN pecl channel-update pecl.php.net \
     && docker-php-ext-enable redis \
     && pecl install inotify \
     && docker-php-ext-enable inotify \
+    && pecl install grpc \
+    && docker-php-ext-enable grpc \
     && pecl clear-cache
 
 # install phalcon extention

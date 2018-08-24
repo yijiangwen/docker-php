@@ -23,13 +23,29 @@ php镜像来自官方 `php:fpm`，目前最新稳定版本是 `7.2.8`
 - mongodb
 - GD
 - memcached
+- bcmath
+- openssl
+- mbstring
+- posix
+- pcntl
+- intl
+- soap
+- gmp
+- msgpack
+- inotify
+- grpc
+- seaslog
+- apcu (可选)
 - ...
+
+支持运行基于swoole/phalcon/workerman的项目
 
 手动添加了 `composer` 并替换了国内源，修改了时区（`Asia/Shanghai`）
 
 ### nginx
 
 直接使用的 `nginx:latest` 镜像,需要挂载自己的PHP项目工作目录，并配置nginx/conf.d里各个站点
+可以支持HTTPS 加密协议访问（单向、双向）
 
 ### mongodb
 

@@ -36,22 +36,18 @@ password='8888'
 /usr/bin/expect <<-EOF
 set timeout 30
 spawn /usr/bin/openssl pkcs12 -export -clcerts -inkey /etc/nginx/ssl/private/client.pem -in /etc/nginx/ssl/certs/client.cer -out /etc/nginx/ssl/certs/client.p12
-expect "*Enter*"
+expect "*Password*"
 send "$password\r"
 sleep 1
-expect "*Enter*"
+expect "*Password*"
 send "$password\r"
 sleep 1
-
 spawn /usr/bin/openssl pkcs12 -export -clcerts -inkey /etc/nginx/ssl/private/server.pem -in /etc/nginx/ssl/certs/server.cer -out /etc/nginx/ssl/certs/server.p12
-expect "*Enter*"
+expect "*Password*"
 send "$password\r"
 sleep 1
-expect "*Enter*"
+expect "*Password*"
 send "$password\r"
-sleep 1
-send "\r\r"
 interact
 expect eof
 EOF
-exit
