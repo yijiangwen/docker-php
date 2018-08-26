@@ -116,5 +116,10 @@ RUN curl -sS https://install.phpcomposer.com/installer | php \
     && composer self-update --clean-backups \
     && composer config -g repo.packagist composer https://packagist.laravel-china.org
 
+# 对Seaslog默认存储目录增加www-data owner
+RUN chown -R www-data:www-data /var/log/www
+# 对Php默认bash登陆目录赋予www-data:www-data owner
+RUN chown -R www-data:www-data /var/www
+
 EXPOSE 9000
 CMD ["php-fpm"]
