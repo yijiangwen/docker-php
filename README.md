@@ -26,6 +26,8 @@ php镜像来自官方 `php:fpm`，目前最新稳定版本是 `7.2.8`
 - bcmath
 - openssl
 - mbstring
+- sockets
+- event
 - posix
 - pcntl
 - intl
