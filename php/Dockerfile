@@ -36,6 +36,7 @@ RUN apt-get update -y && \
     libxml2 \
     libxml2-dev \
     libgmp3-dev \
+    libevent-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # 替换VIM鼠标状态为非可视状态
@@ -59,7 +60,7 @@ RUN pecl channel-update pecl.php.net \
     && docker-php-ext-configure gd \
     --with-jpeg-dir=/usr/lib \
     --with-freetype-dir=/usr/include/freetype2 \
-    && docker-php-ext-install -j$(nproc) bcmath mysqli pdo_mysql gd pcntl intl soap gmp \
+    && docker-php-ext-install -j$(nproc) bcmath mysqli pdo_mysql gd sockets pcntl intl soap gmp \
     && pecl install msgpack \
     && docker-php-ext-enable msgpack \
     && pecl install seaslog \
@@ -77,6 +78,8 @@ RUN pecl channel-update pecl.php.net \
     && docker-php-ext-enable inotify \
     && pecl install grpc \
     && docker-php-ext-enable grpc \
+    && echo "no\r\/usr/local/php-event/\ryes"|pecl install event \
+    && docker-php-ext-enable event \
     && pecl clear-cache
 
 # install phalcon extention
