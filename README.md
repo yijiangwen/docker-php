@@ -4,7 +4,9 @@
 
 ## 为合适自己的工作和开发环境而打造，for ninja911
 
-使用 **docker-compose** 快速搭建php环境
+- 请配置docker的Registry mirrors为中国大陆的 daocloud.io（加速器）
+- 使用 **docker-compose up -d** 快速搭建php环境
+- 此构建基本全程使用国内镜像，构建速度杠杠的（除了php pecl和composer self-update外）
 
 ## 环境构成
 
