@@ -8,6 +8,51 @@
 - 使用 **docker-compose up -d** 快速搭建php环境
 - 此构建基本全程使用国内镜像，构建速度杠杠的（除了php pecl和composer self-update外）
 
+## 使用方法
+
+### 基础配置
+1. 安装Docker（官方默认会自带docker-compose 工具）, 已经安装过的可以跳过此步
+2. 对Docker Machine 设置里，配置`Setting->Daemon->Registry mirrors`,增加加速器URL，比如http://xxxx.m.daocloud.io
+3. 对Docker Machine 设置里，配置`Setting->Shared Drives(Windows)/File Sharing(Mac)`, 增加共享目录。要保证容器你所挂载本地目录一定是配置的子目录。 正确设置举例 【Windows】Share配置“E”盘,容器挂载本地目录E:/works;【Mac】Share配置“/User”, 容器挂载本地目录/User/username/works
+
+### Docker-php使用
+- 【必】复制example.env到同级目录下，并重命名.env，命令操作 
+```shell
+cp ./example.env ./.env
+```
+- 【必】修改.env文件的配置。`LOCAL_STOARGE_PATH`=设置为此github clone的根目录。 比如/User/username/server/docker-php
+- 【必】修改.env文件的配置。`LOCAL_WEB_PATH`=设置为你开发项目的基础根目录, 比如/User/username/works
+- 【选】修改.env文件配置。`MYSQL_ROOT_PASSWORD`=设置MYSQL数据库初始化root的密码，默认为mysql2018
+- 【必】启动所有命令行执行
+```shell
+docker-compose up -d
+```
+
+### Nginx配置
+- 多个虚拟站点的配置，直接参考nginx/conf.d/demo.cfg， 复制粘贴demo.cfg在同目录下并重名为site1.conf, 并根据注释修改目录路径（以容器目录为准）,重命名文件必须以`conf`扩展名结尾, 举例命令行
+```shell
+cp ./nginx/conf.d/demo.cfg ./nginx/conf.d/site1.conf
+```
+- 开启HTTPS支持。 第一次进入nginx容器，命令行
+```shell
+docker-compose exec nginx bash
+# 自动化生成相关证书，生成目录在容器目录/etc/nginx/ssl
+sh /usr/local/bin/docker-make-ssl.sh
+# 拷贝容器的所有证书到宿主机nginx/ca目录下
+cp -R /etc/nginx/ssl /etc/nginx/ca
+```
+然后配置你的nginx虚拟站点conf，取消相关ssl_注释即可，默认开放443:443映射
+
+### PHP配置
+- 【Seaslog】的配置范本文件在宿主机php/ext/demo.ini里，根据注释复制一下，然后进入PHP容器修改容器内的文件`/usr/local/etc/php/conf.d/docker-php-ext-seaslog.ini` 即可, 命令如下
+```shell
+# 进入PHP容器
+docker-compose exec php bash
+# 修改容器内的seaslog扩展配置
+vi /usr/local/etc/php/conf.d/docker-php-ext-seaslog.ini
+```
+
+
 ## 环境构成
 
 将 `php-fpm` 和 `nginx` 容器分开，通过 `php:9000` 端口通信
@@ -56,7 +101,7 @@ php镜像来自官方 `php:fpm`，目前最新稳定版本是 `7.2.8`
 直接使用的 `mongodb:latest` 镜像，根据具体情况修改 `/data/mongodb` 本地映射的数据库文件夹，如不需要可注释掉，其他数据库同理。
 Windows 磁盘是NTFS/FAT32，不支持Ext4大文件，不能挂载，需要注释挂载， Windows下无解
 
-## 运行
+## 常用运行
 
 ```sh
 $ cd docker-php/
