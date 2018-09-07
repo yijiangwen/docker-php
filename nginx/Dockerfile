@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM nginx:1.15.3
 
 LABEL maintainer="ninja911<ninja911@qq.com>"
 
