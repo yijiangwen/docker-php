@@ -49,17 +49,17 @@ services:
             - ${LOCAL_STOARGE_PATH}/mysql/logs:/var/log/mysql
         container_name: mysql
         #restart: always
-    redis:
-        image: redis:${REDIS_VERSION}
-        volumes:
-            # redis 配置文件
-            - ${LOCAL_STOARGE_PATH}/redis/conf.d/redis.conf:/etc/redis/redis.conf:ro
-            # redis 持久化数据存储
-            - ${LOCAL_STOARGE_PATH}/redis/db:/data/redis
-            # 以配置文件启动 redis
-        ports:
-            - 6379:6379
-        container_name: redis
+#    redis:
+#        image: redis:${REDIS_VERSION}
+#        volumes:
+#            # redis 配置文件
+#            - ${LOCAL_STOARGE_PATH}/redis/conf.d/redis.conf:/etc/redis/redis.conf:ro
+#            # redis 持久化数据存储
+#            - ${LOCAL_STOARGE_PATH}/redis/db:/data/redis
+#            # 以配置文件启动 redis
+#        ports:
+#            - 6379:6379
+#        container_name: redis
         #restart: always
     #mongo:
 #        image: mongo:latest

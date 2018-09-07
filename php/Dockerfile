@@ -22,6 +22,7 @@ RUN apt-get update -y && \
     vim \
     git \
     unzip \
+    locales \
     procps \
     libz-dev \
     libpq-dev \
@@ -41,6 +42,11 @@ RUN apt-get update -y && \
 
 # 替换VIM鼠标状态为非可视状态
 RUN sed -i 's/mouse\=a/mouse=v/g' /usr/share/vim/vim80/defaults.vim
+
+RUN echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen
+
+ENV LANG=en_US.UTF-8 \
+    LC_ALL=en_US.UTF-8
 
 # install hiredis
 RUN wget --no-check-certificate https://gitee.com/oschina/hiredis/repository/archive/v0.13.3.zip -O hiredis.zip \
