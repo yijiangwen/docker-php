@@ -46,7 +46,7 @@ cp -R /etc/nginx/ssl /etc/nginx/ca
 - 使用动态扩展库方法，复制nginx/my_modules/xxxx.so 文件到nginx容器里/etc/nginx/module/内，并修改nginx.conf文件，在worker_processes下一行追加 `load_module modules/xxxx.so;`，可以参考conf.d/nginx.default配置.
 
 ### PHP配置
-- 【Seaslog】的配置范本文件在宿主机php/ext/demo.ini里，根据注释复制一下，然后进入PHP容器修改容器内的文件`/usr/local/etc/php/conf.d/docker-php-ext-seaslog.ini` 即可, 命令如下
+- 【Seaslog】的配置范本文件在宿主机php/ext/ini/seaslog.ini里，根据注释复制一下，然后进入PHP容器修改容器内的文件`/usr/local/etc/php/conf.d/docker-php-ext-seaslog.ini` 即可, 命令如下
 ```shell
 # 进入PHP容器
 docker-compose exec php bash
@@ -86,6 +86,7 @@ php镜像来自官方 `php:fpm`，目前最新稳定版本是 `7.2.8`
 - inotify
 - grpc
 - seaslog
+- molten
 - apcu (可选)
 - ...
 
