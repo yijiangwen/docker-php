@@ -29,6 +29,48 @@ services:
             - ${LOCAL_STOARGE_PATH}/php/ext:/etc/php/my_ext
         container_name: php
         #restart: always
+    es_n1:
+        image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+        #hostname: "{{.Node.Hostname}}-es_n1"
+        environment:
+            - TZ=Asia/Shanghai
+            #- discovery.zen.ping.unicast.hosts=elasticsearch
+            #- discovery.zen.minimum_master_nodes=1
+            #- ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+            - xpack.security.http.ssl.enabled=false
+            - xpack.security.transport.ssl.enabled=false
+            - xpack.security.enabled=false
+            # - xpack.license.self_generated.type=trial
+            - xpack.watcher.enabled=false
+            - xpack.monitoring.enabled=false
+            - cluster.name=DevOps
+            - node.name=es_n1
+            - network.host=0.0.0.0
+            - http.cors.enabled=true
+            - http.cors.allow-origin="*"
+            - bootstrap.memory_lock=true
+            # 设置elasticsearch服务的java虚拟机内存使用
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            # - discovery.type="single-node"
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+            nproc: 65535
+            # 系统文件句柄打开数量限制
+            nofile:
+                soft: 65536
+                hard: 65536
+        # cap_add:
+        #     - IPC_LOCK
+        volumes:
+            - ${LOCAL_STOARGE_PATH}/elasticsearch/es_n1/data:/usr/share/elasticsearch/data
+            - ${LOCAL_STOARGE_PATH}/elasticsearch/es_n1/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+            - ${LOCAL_STOARGE_PATH}/elasticsearch/es_n1/config/jvm.options:/usr/share/elasticsearch/config/jvm.options
+        ports:
+            - 9200:9200
+            - 9300:9300
+        container_name: es_n1
     # MySQL数据库
 #    mysql:
 #        image: mysql:${MYSQL_VERSION}
