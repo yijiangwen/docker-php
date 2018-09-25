@@ -14,7 +14,7 @@
 1. 安装Docker（官方默认会自带docker-compose 工具）, 已经安装过的可以跳过此步
 2. 对Docker Machine 设置里，配置`Setting->Daemon->Registry mirrors`,增加加速器URL，比如http://xxxx.m.daocloud.io
 3. 对Docker Machine 设置里，配置`Setting->Shared Drives(Windows)/File Sharing(Mac)`, 增加共享目录。要保证容器你所挂载本地目录一定是配置的子目录。 正确设置举例 【Windows】Share配置“E”盘,容器挂载本地目录E:/works;【Mac】Share配置“/User”, 容器挂载本地目录/User/username/works
-4. docker-compose.yaml 默认关闭了mysql,redis,mongodb，如果需要请删除注释行.
+4. docker-compose.yaml 默认关闭了mysql,redis,mongodb,elasticsearch，如果需要请删除注释行.
 
 ### Docker-php使用
 - 【必】复制example.env到同级目录下，并重命名.env，命令操作 
@@ -103,6 +103,10 @@ php镜像来自官方 `php:fpm`，目前最新稳定版本是 `7.2.8`
 
 直接使用的 `mongodb:latest` 镜像，根据具体情况修改 `/data/mongodb` 本地映射的数据库文件夹，如不需要可注释掉，其他数据库同理。
 Windows 磁盘是NTFS/FAT32，不支持Ext4大文件，不能挂载，需要注释挂载， Windows下无解
+
+### ElasticSearch
+
+这里强制使用ES5.3.x版本，因为阿里云提供这个版本。 如果需要安装IK,请自行配置容器插件目录(`/usr/share/elasticsearch/plugins`)
 
 ## 常用运行
 
