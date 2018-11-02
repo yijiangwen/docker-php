@@ -69,7 +69,6 @@ RUN pecl channel-update pecl.php.net \
     && docker-php-ext-configure gd \
     --with-jpeg-dir=/usr/lib \
     --with-freetype-dir=/usr/include/freetype2 \
-    --with-zlib-dir=/usr \
     && docker-php-ext-install -j$(nproc) bcmath mysqli pdo_mysql gd sockets pcntl intl soap gmp \
     && pecl install msgpack \
     && docker-php-ext-enable msgpack \
