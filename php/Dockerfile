@@ -39,6 +39,12 @@ RUN apt-get update -y && \
     libevent-dev \
     libzip-dev \
     zlib1g-dev \
+    libldap2-dev \
+    libbz2-dev \
+    libjpeg62-turbo-dev \
+    libtidy-dev \
+    libsqlite3-dev \
+    libsqlite3-0 \
     tmux \
     keychain \
     && rm -rf /var/lib/apt/lists/*
@@ -69,7 +75,9 @@ RUN pecl channel-update pecl.php.net \
     && docker-php-ext-configure gd \
     --with-jpeg-dir=/usr/lib \
     --with-freetype-dir=/usr/include/freetype2 \
-    && docker-php-ext-install -j$(nproc) bcmath mysqli pdo_mysql gd sockets pcntl intl soap gmp \
+    --with-zlib-dir=/usr \
+    && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
+    && docker-php-ext-install -j$(nproc) dba bz2 calendar ldap zip json tidy xml pdo_sqlite bcmath mysqli pdo_mysql gd sockets pcntl intl soap gmp \
     && pecl install msgpack \
     && docker-php-ext-enable msgpack \
     && pecl install seaslog \

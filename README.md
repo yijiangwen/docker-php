@@ -70,8 +70,11 @@ php镜像来自官方 `php:fpm`，目前最新稳定版本是 `7.2.8`
 - mysqli
 - pdo_mysql
 - mongodb
+- bz2
+- dba
 - GD
-- zip (进php容器执行 pecl install zip)
+- zip
+- pdo_sqlite
 - memcached
 - bcmath
 - openssl
@@ -81,6 +84,11 @@ php镜像来自官方 `php:fpm`，目前最新稳定版本是 `7.2.8`
 - posix
 - pcntl
 - intl
+- xml
+- tidy
+- json
+- ldap
+- calendar
 - soap
 - gmp
 - msgpack
