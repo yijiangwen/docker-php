@@ -71,6 +71,7 @@ php镜像来自官方 `php:fpm`，目前最新稳定版本是 `7.2.8`
 - pdo_mysql
 - mongodb
 - GD
+- zip (进php容器执行 pecl install zip)
 - memcached
 - bcmath
 - openssl
@@ -87,6 +88,7 @@ php镜像来自官方 `php:fpm`，目前最新稳定版本是 `7.2.8`
 - grpc
 - seaslog
 - molten
+- zlib
 - apcu (可选)
 - ...
 

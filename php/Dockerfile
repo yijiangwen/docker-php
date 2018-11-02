@@ -21,7 +21,6 @@ RUN apt-get update -y && \
     unzip \
     vim \
     git \
-    unzip \
     locales \
     procps \
     libz-dev \
@@ -38,6 +37,10 @@ RUN apt-get update -y && \
     libxml2-dev \
     libgmp3-dev \
     libevent-dev \
+    libzip-dev \
+    zlib1g-dev \
+    tmux \
+    keychain \
     && rm -rf /var/lib/apt/lists/*
 
 # 替换VIM鼠标状态为非可视状态
@@ -66,6 +69,7 @@ RUN pecl channel-update pecl.php.net \
     && docker-php-ext-configure gd \
     --with-jpeg-dir=/usr/lib \
     --with-freetype-dir=/usr/include/freetype2 \
+    --with-zlib-dir=/usr \
     && docker-php-ext-install -j$(nproc) bcmath mysqli pdo_mysql gd sockets pcntl intl soap gmp \
     && pecl install msgpack \
     && docker-php-ext-enable msgpack \
@@ -122,10 +126,8 @@ RUN curl -sS https://install.phpcomposer.com/installer | php \
     && composer self-update --clean-backups \
     && composer config -g repo.packagist composer https://packagist.laravel-china.org
 
-# 对Seaslog默认存储目录增加www-data owner
-RUN chown -R www-data:www-data /var/log/www
-# 对Php默认bash登陆目录赋予www-data:www-data owner
-RUN chown -R www-data:www-data /var/www
+# 对Seaslog默认存储目录增加www-data owner && 对Php默认bash登陆目录赋予www-data:www-data owner
+RUN chown -R www-data:www-data /var/log/www && chown -R www-data:www-data /var/www
 
 EXPOSE 9000
 CMD ["php-fpm"]
