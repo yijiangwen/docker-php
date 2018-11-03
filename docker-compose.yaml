@@ -30,7 +30,7 @@ services:
         container_name: php
         #restart: always
 #    es_n1:
-#        image: hub.c.163.com/binbinbin915/elasticsearch:${ELASTIC_VERSION}
+#        image: daocloud.io/library/elasticsearch:${ELASTIC_VERSION}
 #        #hostname: "{{.Node.Hostname}}-es_n1"
 #        environment:
 #            - TZ=Asia/Shanghai
