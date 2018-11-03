@@ -30,7 +30,7 @@ services:
         container_name: php
         #restart: always
 #    es_n1:
-#        image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+#        image: hub.c.163.com/binbinbin915/elasticsearch:${ELASTIC_VERSION}
 #        #hostname: "{{.Node.Hostname}}-es_n1"
 #        environment:
 #            - TZ=Asia/Shanghai
@@ -51,8 +51,8 @@ services:
 #            - bootstrap.memory_lock=true
 #            # 设置elasticsearch服务的java虚拟机内存使用
 #            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-#            # ES_JVM_OPTIONS仅最es 5.x有效
-#            - "ES_JVM_OPTIONS=-Xms512m -Xmx512m"
+#            # ES_JVM_OPTIONS仅最es 5.3.x有效
+#            # - "ES_JVM_OPTIONS=-Xms512m -Xmx512m"
 #            # - discovery.type="single-node"
 #        ulimits:
 #            memlock:

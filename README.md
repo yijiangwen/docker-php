@@ -116,7 +116,7 @@ Windows 磁盘是NTFS/FAT32，不支持Ext4大文件，不能挂载，需要注�
 
 ### ElasticSearch
 
-这里强制使用ES5.3.x版本，因为阿里云提供这个版本。 如果需要安装IK,请自行配置容器插件目录(`/usr/share/elasticsearch/plugins`)
+这里强制使用ES5.5.3版本，因为阿里云提供这个版本。 如果需要安装IK,请自行配置容器插件目录(`/usr/share/elasticsearch/plugins`)
 
 ## 常用运行
 
