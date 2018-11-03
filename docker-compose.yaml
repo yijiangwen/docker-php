@@ -67,6 +67,9 @@ services:
 #        #     - IPC_LOCK
 #        volumes:
 #            - ${LOCAL_STOARGE_PATH}/elasticsearch/es_n1/data:/usr/share/elasticsearch/data
+#            # 默认注释下面2行，如果需要下次启动前限制内存大小，请删除下面2行注释.
+#            #- ${LOCAL_STOARGE_PATH}/elasticsearch/es_n1/config/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
+#            #- ${LOCAL_STOARGE_PATH}/elasticsearch/es_n1/config/jvm.options:/etc/elasticsearch/jvm.options
 #        ports:
 #            - 9200:9200
 #            - 9300:9300
