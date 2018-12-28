@@ -27,6 +27,7 @@ services:
         volumes:
             - ${LOCAL_WEB_PATH}:/works
             - ${LOCAL_STOARGE_PATH}/php/ext:/etc/php/my_ext
+            - ${LOCAL_STOARGE_PATH}/php/php.ini:/usr/local/etc/php/php.ini:ro
         container_name: php
         #restart: always
 #    es_n1:
