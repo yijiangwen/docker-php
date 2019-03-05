@@ -118,6 +118,10 @@ Windows 磁盘是NTFS/FAT32，不支持Ext4大文件，不能挂载，需要注�
 
 这里强制使用ES5.5.2版本。 如果需要安装IK,请自行配置容器插件目录(`/usr/share/elasticsearch/plugins`)
 
+### Beanstalk
+包含Beanstalkd + Aurora, 进入容器执行`/usr/local/aurora/aurora -c /usr/local/aurora/conf/aurora.toml`, 就可以启动Aurora
+
+
 ## 常用运行
 
 ```sh

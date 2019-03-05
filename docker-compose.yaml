@@ -110,6 +110,23 @@ services:
 #            - 6379:6379
 #        container_name: redis
         #restart: always
+    # Beanstalk Server
+    beanstalk:
+        build: beanstalk/
+        environment:
+            - TZ=Asia/Shanghai
+            - BEANSTALKD_VERSION=${BEANSTALKD_VERSION}
+            - BEANSTALKD_PORT=${BEANSTALKD_PORT}
+            - BEANSTALKD_ADDR=${BEANSTALKD_ADDR}
+            - BEANSTALKD_MAX_JOB_SIZE=${BEANSTALKD_MAX_JOB_SIZE}
+        ports:
+            - 11300:${BEANSTALKD_PORT}
+            - 3000:3000
+        volumes:
+            - ${LOCAL_STOARGE_PATH}/beanstalk/data/beanstalkd/:/data/beanstalkd/
+            - ${LOCAL_STOARGE_PATH}/beanstalk/aurora/conf/:/usr/local/aurora/conf/:cached
+        container_name: beanstalk
+       #restart: always
     #mongo:
 #        image: mongo:latest
 #        volumes: 
